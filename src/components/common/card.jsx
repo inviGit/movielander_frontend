@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    maxWidth: 300
   },
   media: {
     width: "100%",

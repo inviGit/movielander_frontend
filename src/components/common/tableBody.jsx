@@ -24,7 +24,7 @@ class tableBody extends Component {
     return (
       <TableBody>
         {data.map((item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.fileid}>
             {columns.map((column) => (
               <TableCell key={this.createKey(item, column)}>
                 {this.renderCell(item, column)}

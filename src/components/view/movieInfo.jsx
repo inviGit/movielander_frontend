@@ -25,7 +25,7 @@ export class MovieInfo extends Component {
     return (
       <div style={{ flexGrow: "1", marginTop: "20px", alignItems: "center" }}>
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={4}>
+          <Grid item xs={"auto"}>
             <MovieCard
               movies={movies}
               onDownloadClick={this.handleDownloadClick}

@@ -1,9 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
+import { makeStyles } from "@material-ui/core/styles";
+import { blueGrey, blue } from "@material-ui/core/colors";
+import Typography from "@material-ui/core/Typography";
 import _ from "lodash";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  grey: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    color: theme.palette.getContrastText(blueGrey[200]),
+    backgroundColor: blueGrey[200],
+  },
+  blue: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    color: theme.palette.getContrastText(blue[900]),
+    backgroundColor: blue[900],
+  },
+}));
+
 const Pagination = (props) => {
+  const classes = useStyles();
+
   const { itemsCount, pageSize, currentPage, onPageChange } = props;
 
   const pagesCount = Math.ceil(itemsCount / pageSize);
@@ -26,13 +52,20 @@ const Pagination = (props) => {
             className={page === currentPage ? "page-item active" : "page-item"}
             style={{ marginRight: "5px" }}
           >
-            <Button
-              variant="contained"
-              color={page === currentPage ? "primary" : "default"}
+            <Avatar
+              variant="rounded"
+              className={page === currentPage ? classes.blue : classes.grey}
               onClick={() => onPageChange(page)}
             >
-              {page}
-            </Button>
+              <Typography
+                variant="body2" 
+                // style={{ fontSize: "14" }}
+                color="inherit"
+                gutterBottom
+              >
+                {page}
+              </Typography>
+            </Avatar>
           </li>
         ))}
       </ul>

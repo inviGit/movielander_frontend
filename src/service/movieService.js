@@ -2,9 +2,9 @@ import axios from "axios";
 
 class MovieService {
 
-   getMovies() {
-    const url = `${process.env.REACT_APP_MOVIE_API}/data`;
-    return axios.get(url);
+  getMovies= async ()=> {
+    const url = `${process.env.REACT_APP_MOVIE_API}?format=json`;
+    return await axios.get(url);
   }
 }
 
