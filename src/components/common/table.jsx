@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 
 const TableComponent = ({ columns, sortColumn, onSort, data }) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} >
       <Table aria-label="simple table">
         <TableHeader
           columns={columns}

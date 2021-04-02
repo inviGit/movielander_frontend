@@ -18,7 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HdIcon from '@material-ui/icons/Hd';
 import HighQualityIcon from '@material-ui/icons/HighQuality';
 import MovieIcon from '@material-ui/icons/Movie';
-import { Link, NavLink, Redirect } from "react-router-dom";
+import Switch from '@material-ui/core/Switch';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,14 +92,34 @@ function HomeIcon(props) {
     </SvgIcon>
   );
 }
+
 function handleItemSelect(item) {
   window.location = `/movies/${item.target.innerText}`;
 }
+
 function handleHomeSelect(item) {
   window.location = `/`;
 }
+
+function handleDarkCheckChange() {
+  const theme = localStorage.getItem("theme");
+  if (theme === null) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    if (theme === "dark") {
+      localStorage.setItem("theme", "light");
+      window.location.reload();
+    } else if (theme === "light") {
+      localStorage.setItem("theme", "dark");
+      window.location.reload();
+    }
+  }
+}
+
 export default function SearchAppBar() {
   const classes = useStyles();
+
+  const theme = localStorage.getItem("theme");
 
   const [state, setState] = React.useState({
     left: false,
@@ -211,6 +231,14 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div> */}
+          <Typography variant="caption" style={{ float: "right" }} >
+            Dark Mode
+          </Typography>
+          <Switch
+            checked={theme === "dark" ? true : false}
+            onChange={handleDarkCheckChange}
+            color={"default"}
+          />
         </Toolbar>
       </AppBar>
     </div>

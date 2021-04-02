@@ -27,12 +27,12 @@ export class Movies extends Component {
     MovieService.getMovies().then((res) => {
       this.setState({ movies: res.data, allMovies: res.data });
     });
-    if(_.size(this.props.match.params)>0){
+    if (_.size(this.props.match.params) > 0) {
       const filter = this.props.match.params.filter;
-      if(MOVIE_QUALITY.includes(filter)){
-        this.setState({ selectedQuality: filter, selectedYear:""});
-      }else if(MOVIE_YEAR.includes(filter)){
-        this.setState({ selectedYear: filter});
+      if (MOVIE_QUALITY.includes(filter)) {
+        this.setState({ selectedQuality: filter, selectedYear: "" });
+      } else if (MOVIE_YEAR.includes(filter)) {
+        this.setState({ selectedYear: filter });
       }
     }
   }
@@ -47,8 +47,8 @@ export class Movies extends Component {
       sortColumn,
     } = this.state;
 
-    let filteredYear  = selectedYear ? movies.filter((m) => m.name.includes(selectedYear))
-    : movies;
+    let filteredYear = selectedYear ? movies.filter((m) => m.name.includes(selectedYear))
+      : movies;
 
     const quality = selectedQuality === "No Filter" ? "" : selectedQuality;
 
@@ -100,7 +100,7 @@ export class Movies extends Component {
 
 
     return (
-      <div style={{ flexGrow: "1", margin: "20px" }}>
+      <div style={{ flexGrow: "1", marginTop: "20px" }}>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={10}>
             <AutocompleteInput
@@ -118,12 +118,13 @@ export class Movies extends Component {
             >
               FILTER BY QUALITY
             </Typography>
-            <ListGroup
-              items={MovieQualityList}
-              selectedItem={selectedQuality}
-              onItemSelect={this.handleQualitySelect}
-            />
-
+            <div style={{ marginBottom: "20px" }}>
+              <ListGroup
+                items={MovieQualityList}
+                selectedItem={selectedQuality}
+                onItemSelect={this.handleQualitySelect}
+              />
+            </div>
             {_.size(allMovies) === 0 ? (
               <div style={{ margin: "20px" }}>
                 <Typography
@@ -147,21 +148,25 @@ export class Movies extends Component {
             )}
 
             <div style={{ margin: "20px", float: "right" }}>
-              <Typography
-                variant="overline"
-                display="block"
-                style={{ fontSize: "14" }}
-                color="inherit"
-                gutterBottom
-              >
-                GO TO PAGE
-              </Typography>
-              <Pagination
-                itemsCount={totalCount}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChange={this.handlePageChange}
-              />
+              {(totalCount <= pageSize) ? <h6></h6> :
+                <div>
+                  <Typography
+                    variant="overline"
+                    display="block"
+                    style={{ fontSize: "14" }}
+                    color="inherit"
+                    gutterBottom
+                  >
+                    GO TO PAGE
+                  </Typography>
+                  <Pagination
+                    itemsCount={totalCount}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    onPageChange={this.handlePageChange}
+                  />
+                </div>
+              }
             </div>
           </Grid>
         </Grid>

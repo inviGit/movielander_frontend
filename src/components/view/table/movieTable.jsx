@@ -15,6 +15,7 @@ export class MovieTable extends Component {
             pathname: `/movie/${movie.id}`,
             state:{name: movie.name}
           }}
+          style={localStorage.getItem("theme") === "dark" ? { color: "white" } : { color: "black" }}
         >
           {movie.name}
         </Link>

@@ -38,7 +38,7 @@ const CardComponent = (props) => {
   return (
     <div className="row">
       {data.map((item, index) => [
-        <Card key={index} className={classes.root}>
+        <Card key={index} className={classes.root} elevation={20}>
           <CardContent key={index}>
             {columns.map((m) => {
               if (m.type === "title") {
