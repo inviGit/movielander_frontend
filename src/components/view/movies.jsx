@@ -10,6 +10,7 @@ import { MOVIE_QUALITY, MOVIE_YEAR } from "../../constants/movieFilter";
 import ListGroup from "../common/listGroup";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import SearchAppBar from "./appBar"
+import Box from '@material-ui/core/Box';
 import _ from "lodash";
 
 export class Movies extends Component {
@@ -106,21 +107,14 @@ export class Movies extends Component {
       <div>
         <SearchAppBar onItemSelect={this.handleAppBarItemSelect} />
         <div style={{ flexGrow: "1" }}>
-
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={12}>
               <Paper>
-                <div className={"text-center text-danger"}>
-                  <Typography
-                    variant="body1"
-                    display="block"
-                    style={{ fontSize: "14", text: "center" }}
-                    color="inherit"
-                    gutterBottom
-                  >
+                <Typography component="div" color="secondary" >
+                  <Box textAlign="center" fontWeight="fontWeightBold" fontStyle="oblique" m={1}>
                     Disclaimer: This app is for project purpose.
+                </Box>
                 </Typography>
-                </div>
               </Paper>
             </Grid>
             <Grid item xs={10}>

@@ -227,14 +227,12 @@ export default function SearchAppBar({ onItemSelect }) {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div> */}
-          <Typography variant="caption" style={{ float: "right" }} noWrap>
+          <Typography variant="caption" style={{ float: "right" }} >
             Dark Mode
           </Typography>
           <Switch
             checked={theme === "dark" ? true : false}
             onChange={handleDarkCheckChange}
-            name="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
             color={"default"}
           />
         </Toolbar>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MovieCard from "./cards/movieCard";
 import MovieService from "../../service/movieService";
-import { Button, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { paginate } from "../../utils/paginate";
 import MovieTable from "./table/movieTable";
 import Pagination from "../common/pagination";
@@ -41,6 +41,7 @@ export class MovieInfo extends Component {
           if (m.name.match(string) !== null) {
             relatedMovies.push({ fileid: m.fileid, name: m.name });
           }
+          return relatedMovies
         })
         return relatedMovies;
       }
@@ -102,7 +103,7 @@ export class MovieInfo extends Component {
   }
 
   render() {
-    const { movie, relatedMovies, pageSize, currentPage, sortColumn } = this.state;
+    const { movie, pageSize, currentPage, sortColumn } = this.state;
     const { totalCount, data: filteredMovies } = this.getPagedData();
     return (
       <div>
