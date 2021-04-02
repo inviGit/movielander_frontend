@@ -15,17 +15,17 @@ export class MovieCard extends Component {
       label: "Name",
       type: "title",
     },
-    {
-      key: "button",
-      title:"Download",
-      type: "button",
-    },
+    // {
+    //   key: "button",
+    //   title:"Download",
+    //   type: "button",
+    // },
   ];
   render() {
-    const { movies, onDownloadClick } = this.props;
+    const { movies, onActionClick } = this.props;
     return (
       <div>
-        <CardComponent columns={this.columns} data={movies} onActionClick={onDownloadClick} />
+        <CardComponent columns={this.columns} data={movies} onActionClick={onActionClick} />
       </div>
     );
   }

@@ -9,13 +9,14 @@ import Typography from "@material-ui/core/Typography";
 import { MOVIE_QUALITY, MOVIE_YEAR } from "../../constants/movieFilter";
 import ListGroup from "../common/listGroup";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Box from '@material-ui/core/Box';
 import _ from "lodash";
 
 export class Movies extends Component {
   state = {
     allMovies: [],
     movies: [],
-    MovieQualityList: MOVIE_QUALITY,
+    MovieQualityList: ["No Filter", ...MOVIE_QUALITY],
     selectedQuality: "",
     selectedYear: "",
     pageSize: 10,
@@ -30,7 +31,7 @@ export class Movies extends Component {
     if (_.size(this.props.match.params) > 0) {
       const filter = this.props.match.params.filter;
       if (MOVIE_QUALITY.includes(filter)) {
-        this.setState({ selectedQuality: filter, selectedYear: "" });
+        this.setState({ selectedQuality: filter, selectedYear: ""});
       } else if (MOVIE_YEAR.includes(filter)) {
         this.setState({ selectedYear: filter });
       }
@@ -108,7 +109,6 @@ export class Movies extends Component {
               label={"name"}
               onItemSelect={this.handleMovieSelect}
             />
-
             <Typography
               variant="overline"
               display="block"
@@ -118,13 +118,11 @@ export class Movies extends Component {
             >
               FILTER BY QUALITY
             </Typography>
-            <div style={{ marginBottom: "20px" }}>
-              <ListGroup
-                items={MovieQualityList}
-                selectedItem={selectedQuality}
-                onItemSelect={this.handleQualitySelect}
-              />
-            </div>
+            <ListGroup
+              items={MovieQualityList}
+              selectedItem={selectedQuality}
+              onItemSelect={this.handleQualitySelect}
+            />
             {_.size(allMovies) === 0 ? (
               <div style={{ margin: "20px" }}>
                 <Typography
@@ -132,7 +130,6 @@ export class Movies extends Component {
                   display="block"
                   style={{ fontSize: "14" }}
                   color="inherit"
-                  gutterBottom
                 >
                   LOADING MOVIES
                 </Typography>
@@ -147,27 +144,31 @@ export class Movies extends Component {
               />
             )}
 
-            <div style={{ margin: "20px", float: "right" }}>
-              {(totalCount <= pageSize) ? <h6></h6> :
-                <div>
-                  <Typography
-                    variant="overline"
-                    display="block"
-                    style={{ fontSize: "14" }}
-                    color="inherit"
-                    gutterBottom
-                  >
-                    GO TO PAGE
+            {_.size(filteredMovies) === 0 && _.size(allMovies) !== 0 ?
+              <Box color="error.main" textAlign="center" fontWeight="fontWeightBold" fontStyle="oblique" fontSize="1.5rem" m={1}>
+                No Movies
+                </Box>
+              :
+              ""
+            }
+            {(totalCount <= pageSize) ? "" :
+              <div style={{ margin: "20px", float: "right" }}>
+                <Typography
+                  variant="overline"
+                  display="block"
+                  style={{ fontSize: "14" }}
+                  color="inherit"
+                >
+                  GO TO PAGE
                   </Typography>
-                  <Pagination
-                    itemsCount={totalCount}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChange={this.handlePageChange}
-                  />
-                </div>
-              }
-            </div>
+                <Pagination
+                  itemsCount={totalCount}
+                  pageSize={pageSize}
+                  currentPage={currentPage}
+                  onPageChange={this.handlePageChange}
+                />
+              </div>
+            }
           </Grid>
         </Grid>
       </div>

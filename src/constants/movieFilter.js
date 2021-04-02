@@ -1,5 +1,4 @@
 export const MOVIE_QUALITY=[
-      "No Filter",
       "1080p",
       "720p",
       "480p",

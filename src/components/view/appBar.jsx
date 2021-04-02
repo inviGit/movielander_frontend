@@ -3,10 +3,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
+// import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import clsx from 'clsx';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -18,7 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HdIcon from '@material-ui/icons/Hd';
 import HighQualityIcon from '@material-ui/icons/HighQuality';
 import MovieIcon from '@material-ui/icons/Movie';
-import Switch from '@material-ui/core/Switch';
+import Switch from '@material-ui/core/Switch'
+import Box from '@material-ui/core/Box';
+import { MOVIE_QUALITY, MOVIE_YEAR } from "../../constants/movieFilter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -149,9 +151,13 @@ export default function SearchAppBar() {
         >
           FIND BY QUALITY
         </Typography>
-        {['1080p', '720p', '10bit', 'x265 HEVC '].map((text, index) => (
+        {MOVIE_QUALITY.map((text, index) => (
           <ListItem button key={text} onClick={handleItemSelect}>
-            <ListItemIcon>{index % 2 === 0 ? <HdIcon /> : <HighQualityIcon />}</ListItemIcon>
+            <ListItemIcon>{index % 2 === 0 ? <Box color="error.main">
+              <HdIcon />
+            </Box> : <Box color="info.main">
+              <HighQualityIcon />
+            </Box>}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -165,9 +171,13 @@ export default function SearchAppBar() {
         FIND BY RELEASE YEAR
         </Typography>
       <List>
-        {['2021', '2020', '2019', '2018'].map((text, index) => (
+        {MOVIE_YEAR.map((text, index) => (
           <ListItem button key={text} onClick={handleItemSelect}>
-            <ListItemIcon><MovieIcon /></ListItemIcon>
+            <ListItemIcon>
+              <Box color="warning.main">
+                <MovieIcon />
+              </Box>
+            </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -175,7 +185,9 @@ export default function SearchAppBar() {
       <Divider />
       <List>
         <ListItem button key={"All"} onClick={handleItemSelect}>
-          <ListItemIcon><MovieIcon /></ListItemIcon>
+          <ListItemIcon><Box color="info.main">
+            <MovieIcon />
+          </Box></ListItemIcon>
           <ListItemText primary={"All Movies"} />
         </ListItem>
       </List>

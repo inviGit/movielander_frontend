@@ -5,6 +5,7 @@ import Movies from "./components/view/movies";
 import MoviesInfo from "./components/view/movieInfo";
 import SearchAppBar from "./components/view/appBar"
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import { Paper } from "@material-ui/core";
 
 
@@ -23,9 +24,9 @@ function App() {
   const styles = {
     paperContainer: {
       flexGrow: "1",
-      backgroundImage: `url(https://source.unsplash.com/random)`,
+      backgroundImage: `url(https://source.unsplash.com/random?nature)`,
       backgroundRepeat: "no-repeat",
-      minHeight:  window.innerHeight,
+      minHeight: window.innerHeight,
       backgroundSize: "cover",
       backgroundPosition: "center",
     }
@@ -36,8 +37,13 @@ function App() {
       <Paper style={styles.paperContainer}>
         <ThemeProvider theme={darkTheme}>
           <SearchAppBar />
+          <Paper style={{marginTop:"-10px"}}>
+            <Box color="error.main" textAlign="center" fontWeight="fontWeightBold" fontStyle="oblique" m={1}>
+              Disclaimer: This app is for project purpose.
+          </Box>
+          </Paper>
           <Switch>
-            <Route path="/movie/:movieId" exact component={MoviesInfo} />
+            <Route path="/movie/:movieName/:movieId" exact component={MoviesInfo} />
             <Route path="/movies/:filter" exact component={Movies} />
             <Route path="/" exact component={Movies} />
           </Switch>
