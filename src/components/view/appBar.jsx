@@ -188,9 +188,8 @@ export default function SearchAppBar({ onItemSelect }) {
       >
         {list("left")}
       </SwipeableDrawer>
-      <AppBar position="static" color="primary">
+      <AppBar position="static">
         <Toolbar>
-
           <IconButton
             edge="start"
             className={classes.menuButton}

@@ -6,7 +6,6 @@ const ListGroup = (props) => {
     <div>
       <button
         className="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split"
-        color="primary"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"

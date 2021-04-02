@@ -5,7 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
@@ -80,14 +80,13 @@ const CardComponent = (props) => {
               } else if (m.type === "button") {
                 return (
                   <CardActions key={m.key}>
-                    {/* <Button
+                    <Button
                       variant="contained"
                       color="primary"
                       style={{ marginBottom: "20px" }}
-                      onClick={onActionClick}
                     >
-                      {m.title}
-                    </Button> */}
+                      {/* {m.title} */}
+                    </Button>
                   </CardActions>
                 );
               } else {

@@ -3,7 +3,7 @@ import MovieService from "../../service/movieService";
 import { paginate } from "../../utils/paginate";
 import Pagination from "../common/pagination";
 import MovieTable from "./table/movieTable";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import AutocompleteInput from "../common/autocompleteInput";
 import Typography from "@material-ui/core/Typography";
 import { MOVIE_QUALITY, MOVIE_YEAR } from "../../constants/movieFilter";
@@ -11,6 +11,7 @@ import ListGroup from "../common/listGroup";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import SearchAppBar from "./appBar"
 import Box from '@material-ui/core/Box';
+import Paper from "@material-ui/core/Paper";
 import _ from "lodash";
 
 export class Movies extends Component {
@@ -109,28 +110,24 @@ export class Movies extends Component {
         <div style={{ flexGrow: "1" }}>
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={12}>
-              <Paper>
-                <Typography component="div" color="secondary" >
-                  <Box textAlign="center" fontWeight="fontWeightBold" fontStyle="oblique" m={1}>
-                    Disclaimer: This app is for project purpose.
+              <Typography component={Paper}>
+                <Box textAlign="center" fontWeight="fontWeightBold" fontStyle="oblique" m={1}>
+                  Disclaimer: This app is for project purpose.
                 </Box>
-                </Typography>
-              </Paper>
+              </Typography>
             </Grid>
             <Grid item xs={10}>
-              <Paper>
-                <AutocompleteInput
-                  data={allMovies}
-                  label={"name"}
-                  onItemSelect={this.handleMovieSelect}
-                />
-              </Paper>
-
+              <AutocompleteInput
+                data={allMovies}
+                label={"name"}
+                onItemSelect={this.handleMovieSelect}
+              />
               <Typography
+              
                 variant="overline"
                 display="block"
                 style={{ fontSize: "14" }}
-                color="inherit"
+                color="secondary"
                 gutterBottom
               >
                 FILTER BY QUALITY
@@ -147,7 +144,7 @@ export class Movies extends Component {
                     variant="overline"
                     display="block"
                     style={{ fontSize: "14" }}
-                    color="inherit"
+                    color="secondary"
                     gutterBottom
                   >
                     LOADING MOVIES
@@ -162,13 +159,12 @@ export class Movies extends Component {
                   onSort={this.handleSort}
                 />
               )}
-
               <div style={{ margin: "20px", float: "right" }}>
                 <Typography
                   variant="overline"
                   display="block"
                   style={{ fontSize: "14" }}
-                  color="inherit"
+                  color="secondary"
                   gutterBottom
                 >
                   GO TO PAGE
