@@ -80,14 +80,14 @@ const CardComponent = (props) => {
               } else if (m.type === "button") {
                 return (
                   <CardActions key={m.key}>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="primary"
                       style={{ marginBottom: "20px" }}
                       onClick={onActionClick}
                     >
                       {m.title}
-                    </Button>
+                    </Button> */}
                   </CardActions>
                 );
               } else {

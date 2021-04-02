@@ -3,10 +3,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
+// import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import clsx from 'clsx';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -18,8 +18,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HdIcon from '@material-ui/icons/Hd';
 import HighQualityIcon from '@material-ui/icons/HighQuality';
 import MovieIcon from '@material-ui/icons/Movie';
-import { Link, NavLink, Redirect } from "react-router-dom";
-
+import { MOVIE_QUALITY, MOVIE_YEAR } from "../../constants/movieFilter";
+import Switch from '@material-ui/core/Switch';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -92,14 +92,30 @@ function HomeIcon(props) {
     </SvgIcon>
   );
 }
-function handleItemSelect(item) {
-  window.location = `/movies/${item.target.innerText}`;
-}
+
 function handleHomeSelect(item) {
-  window.location = `/`;
+  window.location.href = `/`;
 }
-export default function SearchAppBar() {
+
+function handleDarkCheckChange() {
+  const theme = localStorage.getItem("theme");
+  if (theme === null) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    if (theme === "dark") {
+      localStorage.setItem("theme", "light");
+      window.location.reload();
+    } else if (theme === "light") {
+      localStorage.setItem("theme", "dark");
+      window.location.reload();
+    }
+  }
+}
+
+export default function SearchAppBar({ onItemSelect }) {
   const classes = useStyles();
+
+  const theme = localStorage.getItem("theme");
 
   const [state, setState] = React.useState({
     left: false,
@@ -129,8 +145,8 @@ export default function SearchAppBar() {
         >
           FIND BY QUALITY
         </Typography>
-        {['1080p', '720p', '10bit', 'x265 HEVC '].map((text, index) => (
-          <ListItem button key={text} onClick={handleItemSelect}>
+        {MOVIE_QUALITY.map((text, index) => (
+          <ListItem button key={text} onClick={onItemSelect}>
             <ListItemIcon>{index % 2 === 0 ? <HdIcon /> : <HighQualityIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -145,8 +161,8 @@ export default function SearchAppBar() {
         FIND BY RELEASE YEAR
         </Typography>
       <List>
-        {['2021', '2020', '2019', '2018'].map((text, index) => (
-          <ListItem button key={text} onClick={handleItemSelect}>
+        {MOVIE_YEAR.map((text, index) => (
+          <ListItem button key={text} onClick={onItemSelect}>
             <ListItemIcon><MovieIcon /></ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -154,7 +170,7 @@ export default function SearchAppBar() {
       </List>
       <Divider />
       <List>
-        <ListItem button key={"All"} onClick={handleItemSelect}>
+        <ListItem button key={"All"} onClick={onItemSelect}>
           <ListItemIcon><MovieIcon /></ListItemIcon>
           <ListItemText primary={"All Movies"} />
         </ListItem>
@@ -211,6 +227,16 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div> */}
+          <Typography variant="caption" style={{ float: "right" }} noWrap>
+            Dark Mode
+          </Typography>
+          <Switch
+            checked={theme === "dark" ? true : false}
+            onChange={handleDarkCheckChange}
+            name="checkedA"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+            color={"default"}
+          />
         </Toolbar>
       </AppBar>
     </div>

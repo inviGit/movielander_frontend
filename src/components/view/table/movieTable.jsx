@@ -9,19 +9,18 @@ export class MovieTable extends Component {
     {
       path: "name",
       label: "Name",
-       content: (movie) => (
+      content: (movie) => (
         <Link
           to={{
-            pathname: `/movie/${movie.id}`,
-            state:{name: movie.name}
+            pathname: `/movie/${movie.fileid}`,
+            state: { name: movie.name }
           }}
+          style={localStorage.getItem("theme") === "dark" ? { color: "white" } : { color: "black" }}
         >
           {movie.name}
         </Link>
       ),
-
     },
-
   ];
 
   render() {
