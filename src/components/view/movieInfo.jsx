@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import MovieService from "../../service/movieService";
 import MovieCard from "./cards/movieCard";
 import MovieTable from "./table/movieTable";
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { paginate } from "../../utils/paginate";
 import Pagination from "../common/pagination";
 import Typography from "@material-ui/core/Typography";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import SplitString from "../../service/splitString";
 import _ from "lodash";
 
 export class MovieInfo extends Component {
@@ -14,7 +16,7 @@ export class MovieInfo extends Component {
     movieName: "",
     movie: [{}],
     relatedMovies: [],
-    pageSize: 4,
+    pageSize: 6,
     currentPage: 1,
     sortColumn: "",
   };
@@ -28,13 +30,16 @@ export class MovieInfo extends Component {
     MovieService.getMovies().then((res) => {
       async function filterMovies() {
         let relatedMovies = [];
+        // let movieNameArray = movieName.split('=').join(',').split(':').join(',').split(',').join(' ').split(' ').join('(').split('(')
+        let movieNameArray = movieName.split(/(\d+)/).join('').split(/[$-/:-?{-~!"^_`]/)
+        // console.log("mmm",movieNameArray[0])
         await res.data.map((m) => {
-          let string = "";
-          let movieNameArray = movieName.split('=').join(',').split(':').join(',').split(',').join(' ').split(' ')
-          for (let i = 0; i < 2; i++) {
-            string = string.concat(`${movieNameArray[i]} `);
-          }
-          if (m.name.match(string) !== null) {
+          // let string = "";
+          // for (let i = 0; i < _.size(movieNameArray); i++) {
+          //   string = string.concat(`${movieNameArray[i]} `);
+          // }
+          // console.log(m.name.match(movieNameArray));
+          if (m.name.match(movieNameArray[0]) !== null) {
             relatedMovies.push({ fileid: m.fileid, name: m.name });
           }
           return relatedMovies
@@ -77,8 +82,9 @@ export class MovieInfo extends Component {
   };
 
   render() {
-    const { movie, pageSize, currentPage, sortColumn } = this.state;
+    const { movieId, movie, pageSize, currentPage, sortColumn } = this.state;
     const { totalCount, data: filteredMovies } = this.getPagedData();
+    const renderedMovies = SplitString.split(filteredMovies);
 
     return (
       <div style={{ flexGrow: "1", marginTop: "20px", alignItems: "center" }}>
@@ -91,21 +97,18 @@ export class MovieInfo extends Component {
           </Grid>
           <Grid item xs={12}></Grid>
           <Grid item xs={10} style={{ marginTop: "20px" }}>
-            <Typography
-              variant="overline"
-              display="block"
-              style={{ fontSize: "14" }}
-              color="inherit"
+            <CopyToClipboard text={movieId}
             >
-              RELATED MOVIES
-                </Typography>
+              <Box fontStyle="normal" fontWeight="fontWeightBold">RELATED MOVIES</Box>
+            </CopyToClipboard>
             <MovieTable
-              movies={filteredMovies}
+              place={"info"}
+              movies={renderedMovies}
               sortColumn={sortColumn}
               onSort={this.handleSort}
             />
             <div style={{ margin: "20px", float: "right" }}>
-              {(totalCount <= pageSize) ? "":
+              {(totalCount <= pageSize) ? "" :
                 <div>
                   <Typography
                     variant="overline"

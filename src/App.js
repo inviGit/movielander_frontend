@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Movies from "./components/view/movies";
 import MoviesInfo from "./components/view/movieInfo";
@@ -7,7 +7,7 @@ import SearchAppBar from "./components/view/appBar"
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { Paper } from "@material-ui/core";
-
+import NotFound from "./components/view/notFound";
 
 function App() {
 
@@ -45,7 +45,9 @@ function App() {
           <Switch>
             <Route path="/movie/:movieName/:movieId" exact component={MoviesInfo} />
             <Route path="/movies/:filter" exact component={Movies} />
+            <Route path="/not-found" component={NotFound} />
             <Route path="/" exact component={Movies} />
+            <Redirect to="/not-found" />
           </Switch>
         </ThemeProvider>
       </Paper>

@@ -10,6 +10,7 @@ import { MOVIE_QUALITY, MOVIE_YEAR } from "../../constants/movieFilter";
 import ListGroup from "../common/listGroup";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from '@material-ui/core/Box';
+import SplitString from "../../service/splitString";
 import _ from "lodash";
 
 export class Movies extends Component {
@@ -31,7 +32,7 @@ export class Movies extends Component {
     if (_.size(this.props.match.params) > 0) {
       const filter = this.props.match.params.filter;
       if (MOVIE_QUALITY.includes(filter)) {
-        this.setState({ selectedQuality: filter, selectedYear: ""});
+        this.setState({ selectedQuality: filter, selectedYear: "" });
       } else if (MOVIE_YEAR.includes(filter)) {
         this.setState({ selectedYear: filter });
       }
@@ -99,6 +100,7 @@ export class Movies extends Component {
 
     const { totalCount, data: filteredMovies } = this.getPagedData();
 
+    const renderedMovies = SplitString.split(filteredMovies);
 
     return (
       <div style={{ flexGrow: "1", marginTop: "20px" }}>
@@ -138,7 +140,7 @@ export class Movies extends Component {
               </div>
             ) : (
               <MovieTable
-                movies={filteredMovies}
+                movies={renderedMovies}
                 sortColumn={sortColumn}
                 onSort={this.handleSort}
               />
